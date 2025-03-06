@@ -1,0 +1,93 @@
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <button id="new-note" class="new-note-btn" title="Nova nota" aria-label="Nova nota">
+            <i data-lucide='file-plus'></i>
+        </button>
+        
+        <button id="remove-note" class="remove-note-btn" title="Remover nota" aria-label="Remover nota">
+            <i data-lucide='trash'></i>
+        </button>
+    </div>
+    <div id="notes-list" class="notes-list">
+        <div class="note-item active">Item 1</div>
+        <div class="note-item">Item 2</div>
+    </div>
+</aside>
+
+<script>
+    import { createIcons, Trash, FilePlus } from 'lucide'
+    createIcons({
+        icons: {
+            Trash,
+            FilePlus
+        }
+    })
+</script>
+
+<style>
+    .sidebar {
+        width: 250px;
+        background-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-bg));
+        border-right: 1px solid var(--border-color);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidebar-header {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    button {
+        width: 1.25rem;
+        height: 1.25rem;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--color-text);
+        opacity: 0.8;
+        transition: all .2s;
+    }
+
+    button:hover{
+        opacity: 1;
+    }
+
+    .remove-note-btn:hover {
+        color: red;
+    }
+
+    button svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .notes-list {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .note-item {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        cursor: pointer;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        opacity: .7;
+    }
+
+    .note-item.active,
+    .note-item:hover {
+        opacity: 1;
+        background-color: color-mix(in srgb, rgb(255 255 255 / .3), var(--color-bg));
+    }
+
+    .note-item.active { 
+        font-weight: 500;
+    }
+</style>
