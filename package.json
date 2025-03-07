@@ -9,7 +9,10 @@
         "astro": "astro"
     },
     "dependencies": {
+        "@tiptap/core": "^2.11.5",
+        "@tiptap/starter-kit": "^2.11.5",
         "astro": "^5.4.2",
-        "lucide": "^0.477.0"
+        "lucide": "^0.477.0",
+        "ulid": "^2.3.0"
     }
 }

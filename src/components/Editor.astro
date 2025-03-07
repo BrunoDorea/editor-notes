@@ -1,6 +1,40 @@
-<div class="editor-area">
-    <div id="editor-container">teste</div>
+<div class='editor-area'>
+    <div id='editor-container'></div>
 </div>
+
+<script>
+    import { Editor } from '@tiptap/core'
+    import StarterKit from '@tiptap/starter-kit'
+    import { getNoteId, updateNotesList } from '../functions/notes'
+    
+    const noteId = getNoteId()
+    const storageKey = `note-${noteId}`
+
+    new Editor({
+        element: document.querySelector('#editor-container')!,
+        extensions: [
+            StarterKit,
+        ],
+        content: localStorage.getItem(storageKey) || '<h1>Nova nota</h1>',
+        autofocus: true,
+        onUpdate: ({ editor }) => {
+            firstLineIsH1(editor)
+            const content = editor.getHTML()
+            localStorage.setItem(storageKey, content)
+            updateNotesList()
+        },
+    })
+
+    function firstLineIsH1(editor: Editor) {
+        const json = editor.getJSON()
+        if(json.content && json.content.length > 0 && json.content[0].type !== 'heading') {
+            editor.commands.setNodeSelection(0)
+            editor.commands.toggleHeading({ level: 1 })
+        }
+    }
+
+    updateNotesList()
+</script>
 
 <style>
     .editor-area {
@@ -13,6 +47,40 @@
 
     #editor-container {
         flex: 1;
-        padding: 0 calc(100vw - 85vw);
+        padding: 0 15vw;
+    }
+
+	/* Estilos para o editor TipTap */
+	:global(.ProseMirror) {
+		outline: none;
+		min-height: 200px;
+	}
+
+	:global(.ProseMirror p) {
+		margin: 0.5em 0;
+	}
+
+	:global(.ProseMirror h1, .ProseMirror h2, .ProseMirror h3) {
+		margin: 1em 0 0.5em;
+	}
+
+	:global(.ProseMirror ul, .ProseMirror ol) {
+		padding-left: 1.5em;
+	}
+
+	:global(.ProseMirror blockquote) {
+		border-left: 3px solid var(--border-color);
+		padding-left: 1em;
+		margin-left: 0;
+		margin-right: 0;
+	}
+
+	:global(.ProseMirror hr) {
+		border-color: var(--border-color);
+	}
+
+    :global(.ProseMirror img) {
+        max-width: 100%;
+        height: auto;
     }
 </style>

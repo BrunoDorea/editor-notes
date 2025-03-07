@@ -1,16 +1,13 @@
-<aside class="sidebar">
-    <div class="sidebar-header">
-        <button id="new-note" class="new-note-btn" title="Nova nota" aria-label="Nova nota">
+<aside class='sidebar'>
+    <div class='sidebar-header'>
+        <button id='new-note' class='new-note-btn' title='Nova nota' aria-label='Nova nota'>
             <i data-lucide='file-plus'></i>
         </button>
-        
-        <button id="remove-note" class="remove-note-btn" title="Remover nota" aria-label="Remover nota">
+        <button id='remove-note' class='remove-note-btn' title='Remover nota' aria-label='Remover nota'>
             <i data-lucide='trash'></i>
         </button>
     </div>
-    <div id="notes-list" class="notes-list">
-        <div class="note-item active">Item 1</div>
-        <div class="note-item">Item 2</div>
+    <div id='notes-list' class='notes-list'>
     </div>
 </aside>
 
@@ -22,6 +19,18 @@
             FilePlus
         }
     })
+
+    import { ulid } from 'ulid'
+    document.getElementById('new-note')?.addEventListener('click', () => {
+        const noteId = ulid()
+        window.location.hash = noteId
+        window.location.reload()
+    })
+
+    import { removeNote } from '../functions/notes'
+    document.getElementById('remove-note')?.addEventListener('click', () => {
+        removeNote()
+    })
 </script>
 
 <style>
@@ -31,11 +40,13 @@
         border-right: 1px solid var(--border-color);
         display: flex;
         flex-direction: column;
+        height: 100%;
     }
 
     .sidebar-header {
         padding: 1rem;
         border-bottom: 1px solid var(--border-color);
+
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -51,8 +62,7 @@
         opacity: 0.8;
         transition: all .2s;
     }
-
-    button:hover{
+    button:hover {
         opacity: 1;
     }
 
@@ -70,7 +80,7 @@
         overflow-y: auto;
     }
 
-    .note-item {
+    :global(.note-item) {
         padding: 0.75rem 1rem;
         border-bottom: 1px solid var(--border-color);
         cursor: pointer;
@@ -81,13 +91,13 @@
         opacity: .7;
     }
 
-    .note-item.active,
-    .note-item:hover {
+    :global(.note-item.active),
+    :global(.note-item:hover) {
         opacity: 1;
         background-color: color-mix(in srgb, rgb(255 255 255 / .3), var(--color-bg));
     }
 
-    .note-item.active { 
+    :global(.note-item.active) {
         font-weight: 500;
     }
 </style>
