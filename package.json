@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@tiptap/core": "^2.11.5",
+        "@tiptap/extension-image": "^2.11.5",
         "@tiptap/starter-kit": "^2.11.5",
         "astro": "^5.4.2",
         "lucide": "^0.477.0",
